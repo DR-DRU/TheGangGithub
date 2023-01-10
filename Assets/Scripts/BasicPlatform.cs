@@ -20,7 +20,7 @@ public class BasicPlatform : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionExit(Collision collision)
     {
 
         if (collision.gameObject.tag.Equals("Player"))
@@ -34,4 +34,6 @@ public class BasicPlatform : MonoBehaviour
         }
         healthText.text = health.ToString();
     }
+
+
 }
