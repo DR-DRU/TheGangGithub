@@ -349,6 +349,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 3a4e935bf932bb24cbb543178feb836a, type: 2}
   - {fileID: 2100000, guid: 995684fde8a9fe94abcb59cafa3f0c19, type: 2}
   player: {fileID: 597831620}
+  runRecorder: {fileID: 0}
   startText: {fileID: 795372249}
   runText: {fileID: 1456109642}
   cycleText: {fileID: 724207673}
@@ -979,7 +980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &724207672
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2097,7 +2098,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1456109641
 RectTransform:
   m_ObjectHideFlags: 0

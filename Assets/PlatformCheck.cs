@@ -16,11 +16,11 @@ public class PlatformCheck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(transform.position + new Vector3(0, 0.5f, 0), transform.up * 50, Color.green);
+        //Debug.DrawRay(transform.position + new Vector3(0, 0.5f, 0), transform.up * 50, Color.green);
         if (Physics.BoxCast(bC.bounds.max,new Vector3(1,0.1f,1) ,transform.up, transform.rotation, 20.0f, LayerMask.GetMask("Character")))
         {
             bC.isTrigger = false;
-            Debug.Log("Hey");
+            //Debug.Log("Hey");
         }
         else
         {

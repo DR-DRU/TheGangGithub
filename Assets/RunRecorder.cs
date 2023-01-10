@@ -13,25 +13,56 @@ public class RunRecorder : MonoBehaviour
         coroutine = SendPosition();
     }
 
+    private void OnEnable()
+    {
+        GameManager.OnRunStart += StartRecording;
+        GameManager.OnRunEnd += EndRun;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnRunStart -= StartRecording;
+        GameManager.OnRunEnd -= EndRun;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V))
+        /*if (Input.GetKeyDown(KeyCode.V))
         {
-            StartCoroutine(coroutine);
-        }
+            StartRecording();
+        }*/
 
-        if (Input.GetKeyDown(KeyCode.B))
+        /*if (Input.GetKeyDown(KeyCode.B))
         {
-            StopCoroutine(coroutine);
-        }
+            
+        }*/
+
+        /*if (Input.GetButtonDown("EndCurrentRun"))
+        {
+            EndRun();
+        }*/
+
+    }
+
+    void StartRecording()
+    {
+        StartCoroutine(coroutine);
+    }
+
+    void EndRun()
+    {
+        
+        StopCoroutine(coroutine);
+
+
     }
 
     IEnumerator SendPosition()
     {
         while (true)
         {
-            Debug.Log("s");
+            //Debug.Log("s");
             RunManager.instance.AddToCurrentList(transform.position + new Vector3(0,1,0));
             yield return new WaitForSeconds(RunManager.instance.timeIntervall);
         }

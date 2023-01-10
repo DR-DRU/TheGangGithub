@@ -18,6 +18,16 @@ public class Ghost : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    private void OnEnable()
+    {
+        GameManager.OnRunEnd += SelfDestruct;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnRunEnd-= SelfDestruct;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -27,7 +37,6 @@ public class Ghost : MonoBehaviour
         }
         else
         {
-            
             timePercentage += Time.deltaTime / timeBetweenWaypoints;
             rb.MovePosition(Vector3.Lerp(wayPoints[currentGoal-1], wayPoints[currentGoal], timePercentage));
             if (Vector3.Distance(transform.position, wayPoints[currentGoal]) < 0.01f)
@@ -36,5 +45,10 @@ public class Ghost : MonoBehaviour
                 currentGoal++;
             }
         }
+    }
+
+    void SelfDestruct()
+    {
+        Destroy(gameObject);
     }
 }

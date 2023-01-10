@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] goals;
     public Material[] materials;
     public GameObject player;
+    public RunRecorder runRecorder;
 
     private int currentRunNumber = -1;
 
@@ -21,6 +22,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI cycleText;
 
+
+    public delegate void RunStartDelegate();
+    public static event RunStartDelegate OnRunStart;
+
+    public delegate void RunEndDelegate();
+    public static event RunEndDelegate OnRunEnd;
 
 
 
@@ -46,6 +53,7 @@ public class GameManager : MonoBehaviour
 
     public void NextRun()
     {
+        player.transform.position = spawns[0].transform.position;
         startText.enabled = true;
         //runText.enabled = true;
         //cycleText.enabled = true;
@@ -58,10 +66,11 @@ public class GameManager : MonoBehaviour
             currentRunNumber = 0;
         }
 
-        runText.text = materials[currentRunNumber].name + " Run";
-        runText.color = materials[currentRunNumber].color;
-        player.transform.position = spawns[currentRunNumber].transform.position;
-        Debug.Log(player.transform.position);
+
+
+        //runText.text = materials[currentRunNumber].name + " Run";
+        //runText.color = materials[currentRunNumber].color;
+        //Debug.Log(player.transform.position);
     }
 
     public void RunStarted()
@@ -77,6 +86,23 @@ public class GameManager : MonoBehaviour
             PreRunInput();
             
         }
+        else
+        {
+            RunInput();
+        }
+    }
+
+    void RunInput()
+    {
+        if (Input.GetButtonDown("EndCurrentRun"))
+        {
+            if (OnRunEnd != null)
+            {
+                OnRunEnd();
+
+            }
+            NextRun();
+        }
     }
 
     void PreRunInput()
@@ -86,17 +112,24 @@ public class GameManager : MonoBehaviour
             StartRun();
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        /*if (Input.GetKeyDown(KeyCode.E))
         {
             NextRun();
-        }
+        }*/
     }
 
     void StartRun()
     {
         Time.timeScale = 1;
         startText.enabled = false;
-        runText.enabled = false;
-        cycleText.enabled = false;
+        //runText.enabled = false;
+        //cycleText.enabled = false;
+        if (OnRunStart != null)
+        {
+            OnRunStart();
+        }
+
+
+
     }
 }

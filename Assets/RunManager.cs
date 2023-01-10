@@ -29,6 +29,17 @@ public class RunManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        GameManager.OnRunStart += PlaybackAll;
+        GameManager.OnRunEnd += StartNewList;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnRunStart -= PlaybackAll;
+        GameManager.OnRunEnd -= StartNewList;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -47,20 +58,29 @@ public class RunManager : MonoBehaviour
 
     public void StartNewList()
     {
-        currentRun = new List<Vector3>();
         runs.Add(currentRun);
+        currentRun = new List<Vector3>();
+        
     }
 
     public void AddToCurrentList(Vector3 v3)
     {
-        Debug.Log("e");
+        //Debug.Log("e");
         currentRun.Add(v3);
+    }
+
+    public void PlaybackAll()
+    {
+        for (int i = 0; i < runs.Count; i++)
+        {
+            StartPlayback(i);
+        }
     }
 
     void StartPlayback(int runNumber)
     {
-        GameObject g = Instantiate(ghostPrefab, currentRun[0], new Quaternion());
-        g.GetComponent<Ghost>().wayPoints = currentRun;
+        GameObject g = Instantiate(ghostPrefab, runs[runNumber][0], new Quaternion());
+        g.GetComponent<Ghost>().wayPoints = runs[runNumber];
 
     }
 }
