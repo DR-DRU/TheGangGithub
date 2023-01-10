@@ -123,7 +123,11 @@ namespace StarterAssets
 
 		private void LateUpdate()
 		{
-			CameraRotation();
+			if (GameManager.instance.goalReached == false)
+			{
+                CameraRotation();
+            }
+			
 		}
 
 		private void GroundedCheck()

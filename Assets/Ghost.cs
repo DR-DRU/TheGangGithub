@@ -39,7 +39,12 @@ public class Ghost : MonoBehaviour
         {
             timePercentage += Time.deltaTime / timeBetweenWaypoints;
             rb.MovePosition(Vector3.Lerp(wayPoints[currentGoal-1], wayPoints[currentGoal], timePercentage));
-            if (Vector3.Distance(transform.position, wayPoints[currentGoal]) < 0.01f)
+            /*if (Vector3.Distance(transform.position, wayPoints[currentGoal]) < 0.01f)
+            {
+                timePercentage = 0;
+                currentGoal++;
+            }*/
+            if (timePercentage >= 1)
             {
                 timePercentage = 0;
                 currentGoal++;
