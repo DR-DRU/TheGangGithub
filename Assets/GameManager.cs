@@ -47,8 +47,8 @@ public class GameManager : MonoBehaviour
     public void NextRun()
     {
         startText.enabled = true;
-        runText.enabled = true;
-        cycleText.enabled = true;
+        //runText.enabled = true;
+        //cycleText.enabled = true;
 
         Time.timeScale = 0;
         currentRunNumber++;
@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         startText.enabled = false;
-       runText.enabled = false;
+        runText.enabled = false;
         cycleText.enabled = false;
     }
 }
