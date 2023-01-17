@@ -10,6 +10,8 @@ public class Ghost : MonoBehaviour
     float timePercentage = 0;
     public GameObject g;
     Rigidbody rb;
+    public Vector3 positionalChange;
+    Vector3 positionLastFrame;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,8 @@ public class Ghost : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        positionalChange = transform.position - positionLastFrame;
+        //Vector3 startPosition = transform.position;
         if (currentGoal >= wayPoints.Count)
         {
 
@@ -50,6 +54,9 @@ public class Ghost : MonoBehaviour
                 currentGoal++;
             }
         }
+        //positionalChange = transform.position - startPosition;
+        positionLastFrame = transform.position;
+
     }
 
     void SelfDestruct()
