@@ -26,24 +26,6 @@ public class RunRecorder : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        /*if (Input.GetKeyDown(KeyCode.V))
-        {
-            StartRecording();
-        }*/
-
-        /*if (Input.GetKeyDown(KeyCode.B))
-        {
-            
-        }*/
-
-        /*if (Input.GetButtonDown("EndCurrentRun"))
-        {
-            EndRun();
-        }*/
-
-    }
 
     void StartRecording()
     {
@@ -51,21 +33,17 @@ public class RunRecorder : MonoBehaviour
     }
 
     void EndRun()
-    {
-        
+    {      
         StopCoroutine(coroutine);
-
-
     }
 
     IEnumerator SendPosition()
     {
         while (true)
         {
-            //Debug.Log("s");
             RunManager.instance.AddToCurrentList(transform.position + new Vector3(0,1,0));
             yield return new WaitForSeconds(RunManager.instance.timeIntervall);
         }
-   
+  
     }
 }

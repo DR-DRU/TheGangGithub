@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI startText;
     [SerializeField]
+    TextMeshProUGUI benchmarkText;
+    [SerializeField]
     TextMeshProUGUI runText;
     [SerializeField]
     TextMeshProUGUI cycleText;
@@ -75,6 +77,7 @@ public class GameManager : MonoBehaviour
     {
         player.transform.position = spawns[0].transform.position;
         startText.enabled = true;
+        benchmarkText.enabled = true;
         timerText.enabled = false;
         //runText.enabled = true;
         //cycleText.enabled = true;
@@ -94,10 +97,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log(player.transform.position);
     }
 
-    public void RunStarted()
-    {
 
-    }
 
     // Update is called once per frame
     void Update()
@@ -135,14 +135,21 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            SceneManager.LoadScene(nextSceneName);
+            int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
+
+            if (nextScene >= SceneManager.sceneCountInBuildSettings)
+            {
+                nextScene = 0;
+            }
+
+            SceneManager.LoadScene(nextScene);
+            //SceneManager.LoadScene(nextSceneName);
         }
     }
 
     void RunInput()
     {
-        if (Input.GetButtonDown("EndCurrentRun"))
+        if (Input.GetButtonDown("EndCurrentRun") || player.transform.position.y < -20)
         {
             if (OnRunEnd != null)
             {
@@ -161,23 +168,23 @@ public class GameManager : MonoBehaviour
             StartRun();
         }
 
-        /*if (Input.GetKeyDown(KeyCode.E))
-        {
-            NextRun();
-        }*/
     }
 
     public void GoalReached()
     {
-        Debug.Log("Goal Reached");
         goalReached = true;
+
         if (OnGoalReached != null)
         {
             OnGoalReached();
         }
+
         Time.timeScale = 0;
+
         GoalReachedCanvas.gameObject.SetActive(true);
+
         runsUsedText.text = "Runs Used: " + currentRunNumber;
+
         float minutes = Mathf.FloorToInt(currentRunTimer / 60);
         float seconds = Mathf.FloorToInt(currentRunTimer % 60);
         timeUsedText.text = "Time: " + string.Format("{0:00}:{1:00}", minutes, seconds);
@@ -187,6 +194,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         startText.enabled = false;
+        benchmarkText.enabled = false;
         timerText.enabled = true;
         //runText.enabled = false;
         //cycleText.enabled = false;

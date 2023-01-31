@@ -41,21 +41,6 @@ public class RunManager : MonoBehaviour
         GameManager.OnRunEnd -= StartNewList;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            StartPlayback(0);
-        }
-    }
-
     public void StartNewList()
     {
         runs.Add(currentRun);
@@ -65,7 +50,6 @@ public class RunManager : MonoBehaviour
 
     public void AddToCurrentList(Vector3 v3)
     {
-        //Debug.Log("e");
         currentRun.Add(v3);
     }
 
